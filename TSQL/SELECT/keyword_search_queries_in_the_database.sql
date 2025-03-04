@@ -17,7 +17,7 @@ SELECT j.name
 
 SELECT name, count(*) as Liczba_wystapien FROM sys.syscomments SC
 JOIN sys.objects SO ON SC.id=SO.[object_id]
-WHERE [text] LIKE '%Wysylka%' --AND [type]='P' 
+WHERE [text] LIKE '%tmp_TG_SAP_Fakturabuch%' --AND [type]='P' 
 group by name order by 2
 
 -----------------------------------------------------------------------
@@ -84,11 +84,12 @@ FROM SYS.INDEXES X
 WHERE Y.TYPE = 'U' AND Y.NAME LIKE '%wysylkagazetki%'
 ORDER BY 2 DESC
 
+---------------------------------------------------------------------------------------------
+-------------------------------------Search in Synonims--------------------------------------
+---------------------------------------------------------------------------------------------
 
-echo "# SQL_Templates" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/Rado070199/SQL_Templates.git
-git push -u origin main
+SELECT 
+    name AS NazwaSynonimu,
+    base_object_name AS PrawdziwaNazwaObiektu
+FROM sys.synonyms
+WHERE name = 'TBL_DWH_OBROTY_BR';
